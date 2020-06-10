@@ -1,9 +1,13 @@
 import React from 'react';
-import { Auth } from './pages';
+import { Route } from 'react-router-dom';
+
+import { Auth, Home } from './pages';
 
 function App() {
     return (
         <div className="wrapper">
+            <Route exact path={['/', '/login']} component={Auth} />
+            <Route exact path="/chat" component={Home} />
             <Auth />
         </div>
     );
