@@ -1,6 +1,9 @@
+@import '~reset-css';
 @import '~antd/dist/antd.css';
 
 html, body, #root, .wrapper {
   height: 100vh;
   color: #202020;
+  font-size: 14px;
+  font-family: sans-serif, "Roboto Thin";
 }

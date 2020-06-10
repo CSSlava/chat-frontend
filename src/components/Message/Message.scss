@@ -1,15 +1,22 @@
 @import '~styles/variables';
 
 .message {
+  $self: &;
+
   display: flex;
+  max-width: 440px;
 
   &__avatar {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
     img {
       border-radius: 50px;
       width: 33px;
       height: 33px;
       margin-right: 13px;
-      margin-bottom: 18px;
+      margin-bottom: 23px;
     }
   }
 
@@ -17,9 +24,76 @@
     background: $blue;
     box-shadow: 0 5px 5px rgba(54, 116, 255, 0.196733);
     border-radius: 12px 12px 12px 0;
+    padding: 15px;
+    margin-bottom: 8px;
+  }
+
+  &__date {
+    font-size: 12px;
+    opacity: 0.5;
   }
 
   &__text {
     color: #fff;
+    line-height: 20px;
+  }
+
+  &__icon-readed {
+    color: $blue;
+    opacity: 0.5;
+  }
+
+  &__attachments {
+    display: flex;
+    &-item {
+      margin-right: 5px;
+      cursor: pointer;
+      img {
+        width: 45px;
+        height: 45px;
+        border-radius: 5px;
+      }
+    }
+  }
+
+
+
+  &--isme {
+    display: flex;
+    flex-direction: row-reverse;
+
+    #{$self}__content {
+      margin-bottom: 15px;
+      flex-direction: row-reverse;
+    }
+
+    #{$self}__avatar {
+      img {
+        margin-right: 0;
+        margin-left: 13px;
+      }
+    }
+
+    #{$self}__info {
+      text-align: right;
+    }
+
+    #{$self}__background {
+      background: #fff;
+      border: 1px solid #ececec;
+      box-shadow: 0 4px 4px rgba(0, 0, 0, 0.0220444);
+      border-radius: 12px 12px 0 12px;
+      #{$self}__text {
+        color: $black;
+      }
+    }
+
+    #{$self}__attachments {
+      justify-content: flex-end;
+      &-item {
+        margin-left: 5px;
+        margin-right: 0;
+      }
+    }
   }
 }
