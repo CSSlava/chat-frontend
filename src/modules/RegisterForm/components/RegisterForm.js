@@ -4,12 +4,19 @@ import {UserOutlined, LockOutlined, MailOutlined, InfoCircleTwoTone} from '@ant-
 import {Link} from 'react-router-dom';
 import {Button, Block} from '../../../components';
 
-const RegisterForm = () => {
-    const success = true;
-
-    const onFinish = () => {
-
-    };
+const RegisterForm = props => {
+    const success = false;
+    const {
+        values,
+        touched,
+        errors,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset,
+        dirty,
+    } = props;
 
     return (
         <>
@@ -19,16 +26,26 @@ const RegisterForm = () => {
             </div>
             <Block>{!success ? (
                     <Form
-                        name="normal_login"
                         className="login-form"
-                        onFinish={onFinish}
+                        onSubmit={handleSubmit}
                     >
                         <Form.Item
                             hasFeedback
-                            validateStatus="success"
+                            validateStatus={
+                                !touched.email ? '' : errors.email ? 'error' : 'success'
+                            }
+                            help={!touched.email ? '' : errors.email}
                         >
-                            <Input size="large" prefix={<MailOutlined className="site-form-item-icon"/>}
-                                   placeholder="Email"/>
+                            {console.log('test', errors.email)}
+                            <Input
+                                id="email"
+                                size="large"
+                                prefix={<MailOutlined className="site-form-item-icon"/>}
+                                placeholder="Email"
+                                value={values.email}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
                         </Form.Item>
                         <Form.Item
                             hasFeedback
@@ -37,17 +54,26 @@ const RegisterForm = () => {
                             <Input size="large" prefix={<UserOutlined className="site-form-item-icon"/>}
                                    placeholder="Ваше имя"/>
                         </Form.Item>
+
                         <Form.Item
                             hasFeedback
-                            validateStatus="success"
+                            validateStatus={
+                                !touched.password ? '' : errors.password ? 'error' : 'success'
+                            }
+                            help={!touched.email ? '' : errors.email}
                         >
                             <Input
+                                id="password"
                                 size="large"
                                 prefix={<LockOutlined className="site-form-item-icon"/>}
                                 type="password"
                                 placeholder="Пароль"
+                                value={values.password}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                             />
                         </Form.Item>
+
                         <Form.Item
                             hasFeedback
                             validateStatus="success"
@@ -61,7 +87,7 @@ const RegisterForm = () => {
                         </Form.Item>
 
                         <Form.Item>
-                            <Button type="primary" size="large" htmlType="submit" className="login-form-button">
+                            <Button onClick={handleSubmit} type="primary" size="large" htmlType="submit" className="login-form-button">
                                 Зарегистрироваться
                             </Button>
                         </Form.Item>
