@@ -96,4 +96,63 @@
       }
     }
   }
+
+  &--is-typing {
+    #{$self}__background {
+      background: $light-blue;
+    }
+  }
+
+  &__typing {
+    display: flex;
+    justify-content: space-between;
+
+    span {
+      height: 8px;
+      width: 8px;
+      border-radius: 50px;
+      background: #c1c1c1;
+      display: inline-block;
+      margin: 0 3px;
+      opacity: .4;
+
+      @for $i from 1 through 3 {
+        &:nth-of-type(#{$i}) {
+          animation: 1s blink infinite ($i * .3333s);
+        }
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 1;
+        }
+      }
+      //animation-name: typingAnimation;
+      //animation-duration: 1s;
+      //animation-timing-function: ease-in-out;
+      //animation-iteration-count: infinite;
+
+      //&:nth-of-type(1) {
+      //  animation: typingAnimation 1s ease-in-out infinite;
+      //  animation-direction: normal;
+      //}
+      //&:nth-of-type(2) {
+      //  animation: typingAnimation 1s ease-in-out infinite;
+      //  animation-direction: normal;
+      //}
+      //&:nth-of-type(3) {
+      //  animation: typingAnimation 1s ease-in-out infinite;
+      //  animation-direction: normal;
+      //}
+    }
+  }
+}
+
+@keyframes typingAnimation {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1;
+  }
 }
