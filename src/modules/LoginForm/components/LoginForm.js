@@ -3,11 +3,20 @@ import {Form, Input} from 'antd';
 import {UserOutlined, LockOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 import {Button, Block} from '../../../components';
+import validateField from '../../../utils/helpers/validateField';
 
-const LoginForm = () => {
-    const onFinish = () => {
-
-    };
+const LoginForm = props => {
+    const {
+        values,
+        touched,
+        errors,
+        isSubmitting,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        handleReset,
+        dirty,
+    } = props;
 
     return (
         <>
@@ -17,31 +26,43 @@ const LoginForm = () => {
             </div>
             <Block>
                 <Form
-                    name="normal_login"
                     className="login-form"
-                    onFinish={onFinish}
+                    onSubmit={handleSubmit}
                 >
                     <Form.Item
                         hasFeedback
-                        validateStatus="success"
+                        validateStatus={validateField('email', touched, errors)}
+                        help={!touched.email ? '' : errors.email}
                     >
-                        <Input size="large" prefix={<UserOutlined className="site-form-item-icon"/>}
-                               placeholder="Username"/>
+                        <Input
+                            id="email"
+                            size="large"
+                            prefix={<UserOutlined className="site-form-item-icon"/>}
+                            placeholder="Email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                        />
                     </Form.Item>
                     <Form.Item
                         hasFeedback
-                        validateStatus="success"
+                        validateStatus={validateField('password', touched, errors)}
+                        help={!touched.password ? '' : errors.password}
                     >
                         <Input
+                            id="password"
                             size="large"
                             prefix={<LockOutlined className="site-form-item-icon"/>}
                             type="password"
-                            placeholder="Password"
+                            placeholder="Пароль"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
                         />
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" size="large" htmlType="submit" className="login-form-button">
+                        <Button onClick={handleSubmit} type="primary" size="large" htmlType="submit" className="login-form-button">
                             Войти в чат
                         </Button>
                     </Form.Item>

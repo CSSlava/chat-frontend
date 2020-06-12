@@ -3,6 +3,7 @@ import {Form, Input} from 'antd';
 import {UserOutlined, LockOutlined, MailOutlined, InfoCircleTwoTone} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
 import {Button, Block} from '../../../components';
+import {validateField} from "../../../utils/helpers";
 
 const RegisterForm = props => {
     const success = false;
@@ -31,12 +32,9 @@ const RegisterForm = props => {
                     >
                         <Form.Item
                             hasFeedback
-                            validateStatus={
-                                !touched.email ? '' : errors.email ? 'error' : 'success'
-                            }
+                            validateStatus={validateField('email', touched, errors)}
                             help={!touched.email ? '' : errors.email}
                         >
-                            {console.log('test', errors.email)}
                             <Input
                                 id="email"
                                 size="large"
@@ -47,20 +45,26 @@ const RegisterForm = props => {
                                 onBlur={handleBlur}
                             />
                         </Form.Item>
+
                         <Form.Item
                             hasFeedback
                             validateStatus="success"
                         >
-                            <Input size="large" prefix={<UserOutlined className="site-form-item-icon"/>}
-                                   placeholder="Ваше имя"/>
+                            <Input
+                                id="fullname"
+                                size="large"
+                                prefix={<UserOutlined className="site-form-item-icon"/>}
+                                placeholder="Ваше имя"
+                                value={values.fullname}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
                         </Form.Item>
 
                         <Form.Item
                             hasFeedback
-                            validateStatus={
-                                !touched.password ? '' : errors.password ? 'error' : 'success'
-                            }
-                            help={!touched.email ? '' : errors.email}
+                            validateStatus={validateField('password', touched, errors)}
+                            help={!touched.password ? '' : errors.password}
                         >
                             <Input
                                 id="password"
@@ -79,15 +83,20 @@ const RegisterForm = props => {
                             validateStatus="success"
                         >
                             <Input
+                                id="password2"
                                 size="large"
                                 prefix={<LockOutlined className="site-form-item-icon"/>}
                                 type="password"
                                 placeholder="Повторите пароль"
+                                value={values.password2}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
                             />
                         </Form.Item>
 
                         <Form.Item>
-                            <Button onClick={handleSubmit} type="primary" size="large" htmlType="submit" className="login-form-button">
+                            <Button onClick={handleSubmit} type="primary" size="large" htmlType="submit"
+                                    className="login-form-button">
                                 Зарегистрироваться
                             </Button>
                         </Form.Item>
@@ -97,7 +106,7 @@ const RegisterForm = props => {
                         </Form.Item>
                     </Form>) :
                 <div className="auth__success-block">
-                        <InfoCircleTwoTone style={{ fontSize: '50px' }}/>
+                    <InfoCircleTwoTone style={{fontSize: '50px'}}/>
                     <h2>Подтвердите свой аккаунт</h2>
                     <p>Отправлено письмо с подтверждением</p>
                 </div>}
