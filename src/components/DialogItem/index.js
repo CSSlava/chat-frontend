@@ -1,9 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
+import format from 'date-fns/format';
+import isToday from 'date-fns/isToday'
 
 import { Time, IconReaded } from '../../components';
 
 import './DialogItem.scss';
+
+const getMessageTime = createdAt => {
+    if (isToday(createdAt)) {
+        return format(createdAt, 'HH:mm');
+    } else {
+        return format(createdAt, 'dd/MM/yyyy');
+    }
+};
 
 const getAvatar = avatar => {
     if (avatar) {
@@ -25,8 +35,8 @@ const DialogItem = ({ user, message, unreaded }) => (
             <div className="dialogs__item-info-top">
                 <b>Alex Pushkin</b>
                 <span>
-                    {/*<Time date={new Date()} />*/}
-                    15:50
+                    {/*<Time date={getMessageTime(message.created_at)} />*/}
+                    {getMessageTime(message.created_at)}
                 </span>
             </div>
             <div className="dialogs__item-info-bottom">

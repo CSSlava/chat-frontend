@@ -10,6 +10,7 @@ const Home = () => {
             <Dialogs
                 items={[
                     {
+                        _id: Math.random(),
                         user: {
                             fullname: 'Алекс Пушкин',
                             avatar: null,
@@ -18,6 +19,7 @@ const Home = () => {
                             text: 'Последнее* сообщение в диалоге с Алексом',
                             isReaded: false,
                             updated_at: new Date(),
+                            created_at: Date.parse("Wed Jun 17 2020 22:27:18"),
                         }
                     }
                 ]}
