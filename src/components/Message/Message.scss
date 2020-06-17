@@ -103,6 +103,17 @@
     }
   }
 
+  &--image {
+    #{$self}__attachments {
+      &-item {
+        img {
+          width: 150px;
+          height: 150px;
+        }
+      }
+    }
+  }
+
   &__typing {
     display: flex;
     justify-content: space-between;

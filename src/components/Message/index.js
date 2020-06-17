@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import formatDistanceToNowStrict from 'date-fns/formatDistanceToNowStrict';
-import ruLocale from 'date-fns/locale/ru';
 import classNames from 'classnames';
+
+import { Time, IconReaded } from '../../components';
 
 import './Message.scss';
 
@@ -11,20 +11,21 @@ const Message = ({avatar, user, text, date, isMe, isReaded, attachments, isTypin
         <div className={classNames("message", {
             'message--isme': isMe,
             'message--is-typing': isTyping,
+            'message--image': attachments && attachments.length === 1,
         })}>
             <div className="message__avatar">
                 <img src={avatar} alt={`Avatar ${user.fullname}`}/>
             </div>
             <div className="message__content">
                 <div>
-                    <div className="message__background">
+                    {(text || isTyping) && <div className="message__background">
                         {text && <p className="message__text">{text}</p>}
                         {isTyping && <div className="message__typing">
                             <span />
                             <span />
                             <span />
                         </div>}
-                    </div>
+                    </div>}
                     <div className="message__attachments">
                         {attachments &&
                         attachments.map(item => (
@@ -34,9 +35,8 @@ const Message = ({avatar, user, text, date, isMe, isReaded, attachments, isTypin
                         ))}
                     </div>
                     <div className="message__info">
-                        {isMe && (isReaded ? <span className="message__icon-readed">++ </span> :
-                            <span className="message__icon-readed">+</span>)}
-                        {date && <span className="message__date">{formatDistanceToNowStrict(date, {locale: ruLocale})}</span>}
+                        <IconReaded isMe={isMe} isReaded={isReaded} />
+                        {date && <span className="message__date"><Time date={date} /></span>}
                     </div>
                 </div>
 
@@ -55,6 +55,8 @@ Message.propTypes = {
     text: PropTypes.string,
     date: PropTypes.string,
     attachments: PropTypes.array,
+    isMe: PropTypes.bool,
+    isReaded: PropTypes.bool,
     isTyping: PropTypes.bool,
 };
 
